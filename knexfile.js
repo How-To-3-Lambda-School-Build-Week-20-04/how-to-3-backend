@@ -1,7 +1,8 @@
 require('dotenv').config();
 
 module.exports = {
-
+  // npx knex migrate:latest
+  // npx knex seed:run
   development: {
     client: 'sqlite3',
     useNullAsDefault: true,
@@ -16,6 +17,8 @@ module.exports = {
     }
   },
 
+  // npx knex migrate:latest --env testing
+  // npx knex seed:run --env testing
   testing: {
     client: 'sqlite3',
     connection: {

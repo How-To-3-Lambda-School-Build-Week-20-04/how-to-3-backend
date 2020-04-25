@@ -1,3 +1,4 @@
+require('dotenv').config();
 const router = require("express").Router();
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
@@ -7,7 +8,7 @@ const Users = require("../users/users-model");
 router.post('/register', (req, res) => {
   let user = req.body
 
-  const rounds = 12;
+  const rounds = /*process.env.ROUNDS ||*/ 12;
 
   user.password = bcrypt.hashSync(user.password, rounds)
 

@@ -1,13 +1,10 @@
 const router = require('express').Router();
 
-// TO-DO
-// add routers
 const authRouter = require('../auth/auth-router')
-const usersRouter = require("../users/users-router");
-const authMiddleware = require ('../auth/authenticator')
-
+const usersRouter = require('../users/users-router')
+const { restricted } = require ('../auth/auth-helpers')
 
 router.use('/auth', authRouter);
-router.use("/users", authMiddleware, usersRouter);
+router.use('/users', restricted, usersRouter);
 
 module.exports = router;
