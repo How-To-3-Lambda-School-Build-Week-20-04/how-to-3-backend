@@ -25,10 +25,10 @@ URL HERE
 
 The following endpoints are available to test the functionality of the model methods.
 
--   `GET /` - pings the server to check if its up or not
--   `POST /api/auth/register` - register a new user with provided JSON body
--   `POST /api/auth/login` - login a user with their username and password, returns a token
--   `GET /` - retrieves all How-To's
--   `POST /` - posts a new How-To, requires a title, post, and user_id
--   `PUT /:id` - updates an existing How-To
--   `DELETE /:id` - deletes an existing How-To
+-   `GET    /`                  - pings the server to check if its up or not
+-   `POST   /api/auth/register` - register a new user with provided JSON body
+-   `POST   /api/auth/login`    - login a user with their username and password, returns a token
+-   `GET    /api/howto/`        - retrieves all How-To's
+-   `POST   /api/howto/`        - posts a new How-To, requires a title, post, and user_id
+-   `PUT    /api/howto/:id`     - updates an existing How-To
+-   `DELETE /api/howto/:id`     - deletes an existing How-To
