@@ -18,6 +18,7 @@ router.get('/', async (req, res) => {
   }
 })
 
+// will reject if no user_id is in the body
 router.post('/', async (req, res) => {
   const newHowTo = req.body
 
@@ -35,6 +36,8 @@ router.post('/', async (req, res) => {
 });
 
 // id should be the howto's id
+// TO-DO should also require the user's id to make sure its their own post
+
 router.put('/:id', async (req, res) => {
   const changes = req.body
   const id = req.params.id
@@ -61,6 +64,8 @@ router.put('/:id', async (req, res) => {
 })
 
 // id should be the howto's id
+// TO-DO should also require the user's id to make sure its their own post
+
 router.delete('/:id', async (req, res) => {
   const id = req.params.id
 

@@ -17,6 +17,7 @@ exports.up = function(knex) {
     
     howto
       .integer('user_id')
+      .notNullable()
       .unsigned()
       .references('id')
       .inTable('user')
