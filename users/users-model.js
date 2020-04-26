@@ -1,5 +1,7 @@
 const db = require('../data/dbConfig.js');
 
+// this file is used by auth-router
+
 function getBy(filter) {
   return db('user')
     .where(filter)
