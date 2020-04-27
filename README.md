@@ -24,34 +24,22 @@ URL HERE
 #### API
 
 The following endpoints are available to test the functionality of the model methods.
-| HTTP Request | Endpoint             | Description                                                       |
-| :----------- | :------------------- | :---------------------------------------------------------------- |
-|   `GET`      | `/`                  | pings the server to check if its up or not                        |
-|   `POST`     | `/api/auth/register` | register a new user with provided JSON body                       |
-|              |                      | {
-                                          "username":"edgar",
-                                          "password":"123abc",
-                                          "email":"edgarslife@gmail.com"
-                                       }                                                                  |
-|              |                      |                                                                   |
-|   `POST`     | `/api/auth/login`    | login a user with their username and password, returns a token    |
-|              |                      | {
-                                          "username":"edgario",
-                                          "password":"123abc"
-                                        }                                                                 |
-|              |                      |                                                                   |
-|   `GET`      | `/api/howto/`        | retrieves all How-To's                                            |
-|   `POST`     | `/api/howto/`        | posts a new How-To; requires a title, post, and user_id           |
-|              |                      | {
-                                          "title":"my first how-to",
-                                          "post":"this probably needs more steps",
-                                          "user_id":1
-                                        }                                                                 |
-|              |                      |                                                                   |
-|   `PUT`      | `/api/howto/:id`     | updates an existing How-To                                        |
-|              |                      | {
-                                          "title":"this one doesnt require both fields",
-                                          "post":"you could leave this blank, for example"
-                                        }                                                                 |
-|              |                      |                                                                   |
-|   `DELETE`   | `/api/howto/:id`     | deletes an existing How-To                                        |
+| HTTP Request | Endpoint             | Description                                                                         |
+| :----------- | :------------------- | :---------------------------------------------------------------------------------- |
+|   `GET`      | `/`                  | pings the server to check if its up or not                                          |
+|              |                      |                                                                                     |
+|   `POST`     | `/api/auth/register` | register a new user with provided JSON body                                         |
+|              |                      | { "username":"edgar", "password":"123abc", "email":"edgarslife@gmail.com" }         |
+|              |                      |                                                                                     |
+|   `POST`     | `/api/auth/login`    | login a user with their username and password, returns a token                      |
+|              |                      | { "username":"edgario", "password":"123abc" }                                       |
+|              |                      |                                                                                     |
+|   `GET`      | `/api/howto/`        | retrieves all How-To's                                                              |
+|              |                      |                                                                                     |
+|   `POST`     | `/api/howto/`        | posts a new How-To; requires a title, post, and user_id                             |
+|              |                      | { "title":"my first how-to", "post":"this probably needs more steps", "user_id":1 } |
+|              |                      |                                                                                     |
+|   `PUT`      | `/api/howto/:id`     | updates an existing How-To                                                          |
+|              |                      | { "title":"this doesnt require both fields", "post":"you could leave this blank" }  |
+|              |                      |                                                                                     |
+|   `DELETE`   | `/api/howto/:id`     | deletes an existing How-To                                                          |
