@@ -11,7 +11,7 @@ URL HERE
 | email       | varchar(128)     | required, unique                                    |
 | password    | varchar(1024)    | required
 
-#### Howto Schema
+#### How To Schema
 
 | field        | data type        | metadata                                            |
 | :----------- | :--------------- | :-------------------------------------------------- |
@@ -30,6 +30,6 @@ The following endpoints are available to test the functionality of the model met
 |   `POST`     | `/api/auth/register` | register a new user with provided JSON body                       |
 |   `POST`     | `/api/auth/login`    | login a user with their username and password, returns a token    |
 |   `GET`      | `/api/howto/`        | retrieves all How-To's                                            |
-|   `POST`     | `/api/howto/`        | posts a new How-To, requires a title, post, and user_id           |
+|   `POST`     | `/api/howto/`        | posts a new How-To; requires a title, post, and user_id           |
 |   `PUT`      | `/api/howto/:id`     | updates an existing How-To                                        |
 |   `DELETE`   | `/api/howto/:id`     | deletes an existing How-To                                        |

@@ -17,6 +17,7 @@ module.exports = {
     }
   },
 
+  // set up the testing database
   // npx knex migrate:latest --env testing
   // npx knex seed:run --env testing
   testing: {
