@@ -53,7 +53,7 @@ _An example of how the body should appear:_
 {
 	"username":"tim_the_enchanter",
 	"password":"123abc",
-	"email":"enchantertim@gmail.com"
+	"email":"enchanter_tim@gmail.com"
 }
 ```
 _An example of the returned JSON data:_
@@ -140,9 +140,7 @@ This endpoint does not require every field. It should update only what you give 
 _An example of how the body should appear:_
 ```js
 {
-	"title":"Edgar's first how-to post",
-	"post":"Instructions will go in here.",
-	"user_id":1
+	"title":"Edgar's best how-to post"
 }
 ```
 
@@ -151,7 +149,7 @@ _An example of the returned JSON data:_
 [
   {
     "id": 3,
-    "title":"Edgar's first how-to post",
+    "title":"Edgar's best how-to post",
     "post":"Instructions will go in here.",
     "created_at": "2020-04-28 00:58:30",
     "user_id": 1
