@@ -14,6 +14,12 @@ function getBy(filter) {
     .where(filter)
 }
 
+async function getByUName(username) {
+  return db('user')
+    .where(username)
+    .select('id', 'username', 'email')
+}
+
 // returns a single user by their id
 function getByID(id) {
   return db('user')
@@ -58,6 +64,7 @@ function remove(id) {
 module.exports = {
   getAll,
   getBy,
+  getByUName,
   getByID,
   getUserPosts,
   add,
