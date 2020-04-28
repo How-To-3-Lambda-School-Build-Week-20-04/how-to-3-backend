@@ -22,11 +22,20 @@ function getHowtos(category_id) {
 }
 
 // gets all categories on a how-to
-function getCategories(howto_id) {
-  return db('howto_category as hc')
+async function getCategories(howto_id) {
+  const categories = await db('howto_category as hc')
     .join('category as c', 'c.id', 'hc.category_id')
     .where({ howto_id })
-    .select('*')
+    .select('c.id', 'c.name')
+
+  return howto = await db('howto')
+    .where({id: howto_id})
+    .then(next => {
+      return next[0] = {
+        ...next[0],
+        categories
+      }
+    })
 }
 
 // add a new category to the db

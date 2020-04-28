@@ -57,7 +57,10 @@ router.post('/:id/howto', validateCategoryID, validateHowtoID, async (req, res) 
       res.status(400).json({ error: "Missing field required: howto_id."})
     } else {
       req.body.category_id = req.category[0].id
-      res.status(201).json(await Category.assignCat(req.body))
+      await Category.assignCat(req.body)
+      .then(HowtoCat => {
+        res.status(201).json(HowtoCat)
+      })
     }
   } catch ({ message, stack }) {
     res.status(500).json({ error: 'Failed assign category to howto.', message, stack });
