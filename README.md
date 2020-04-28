@@ -142,7 +142,7 @@ _An example of the returned JSON data:_
 
 #### Returns an array of a single user where X is the username
 
-_An example of the returned JSON data:_
+_An example of the returned JSON data for search?username=edgar_
 ```js
 [
   {
@@ -166,7 +166,7 @@ _An example of the returned JSON data:_
 _An example of how the body should appear:_
 ```js
 {
-	"username":"edgar",
+	"username":"edgar"
 }
 ```
 _An example of the returned JSON data:_
@@ -345,15 +345,20 @@ _An example of how the body should appear:_
 }
 ```
 
-_Returns the how-to it was attached to in an array:_
+_Returns the categories on the how-to in an array:_
 ```js
 [
   {
-    "category_name": "General",
     "howto_id": 1,
-    "howto_title": "How to Put on a Medical Mask",
-    "howto_post": "Understand what a medical mask protects you from. Medical or surgical masks are intended to cover both your mouth and nose. They are designed with material that can block large-particle droplets, splashes, sprays and splatter — all of which may contain viruses or bacteria that may be harmful to you.",
-    "created_at": "2020-04-28 15:33:29"
+    "category_id": 1,
+    "id": 1,
+    "name": "General"
+  },
+  {
+    "howto_id": 1,
+    "category_id": 2,
+    "id": 2,
+    "name": "Misc"
   }
 ]
 ```
