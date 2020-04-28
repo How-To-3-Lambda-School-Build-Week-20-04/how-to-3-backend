@@ -345,22 +345,29 @@ _An example of how the body should appear:_
 }
 ```
 
-_Returns the categories on the how-to in an array:_
+_Returns the how-to and the categories on the how-to:_
 ```js
-[
-  {
-    "howto_id": 1,
-    "category_id": 1,
-    "id": 1,
-    "name": "General"
-  },
-  {
-    "howto_id": 1,
-    "category_id": 2,
-    "id": 2,
-    "name": "Misc"
-  }
-]
+{
+  "id": 1,
+  "title": "How to Put on a Medical Mask",
+  "post": "Understand what a medical mask protects you from. Medical or surgical masks are intended to cover both your mouth and nose. They are designed with material that can block large-particle droplets, splashes, sprays and splatter — all of which may contain viruses or bacteria that may be harmful to you.",
+  "created_at": "2020-04-28 15:33:29",
+  "user_id": 1,
+  "categories": [
+    {
+      "id": 1,
+      "name": "General"
+    },
+    {
+      "id": 2,
+      "name": "Misc"
+    },
+    {
+      "id": 3,
+      "name": "Third category"
+    }
+  ]
+}
 ```
 
 ## [GET]
