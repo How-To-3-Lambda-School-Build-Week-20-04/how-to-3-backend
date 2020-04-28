@@ -57,13 +57,14 @@ _An example of how the body should appear:_
 }
 ```
 _An example of the returned JSON data:_
-
+```js
 {
   "id": 5,
   "username": "tim_the_enchanter",
   "password": "$2a$12$K4DW2jDwOORS5AN/qGYA..I.b1RZUBzqlIwpg2BJIIIBYASABTTAu",
   "email": "enchanter_tim@gmail.com"
 }
+```
 
 [POST]
 ## URL: /api/auth/login
@@ -83,11 +84,12 @@ _An example of how the body should appear:_
 ```
 
 _An example of the returned JSON data:_
-
+```js
 {
   "message": "Welcome Home",
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsInVzZXJuYW1lIjoidGltX3RoZV9lbmNoYW50ZXIiLCJpYXQiOjE1ODgwMzUzOTYsImV4cCI6MTU4ODA0NjE5Nn0.VD9xUJWlgfdY3vNH0G0AakI5Rt9j0qS71ywBKdlrNW8"
 }
+```
 
 ## How-To Endpoints
 
@@ -113,7 +115,7 @@ _An example of how the body should appear:_
 ```
 
 _An example of the returned JSON data:_
-
+```js
 [
   {
     "id": 3,
@@ -123,7 +125,7 @@ _An example of the returned JSON data:_
     "user_id": 1
   }
 ]
-
+```
 [PUT]
 ## URL: /api/howto/:id
 
@@ -145,7 +147,6 @@ _An example of how the body should appear:_
 ```
 
 _An example of the returned JSON data:_
-
 ```js
 [
   {
@@ -162,7 +163,6 @@ _An example of the returned JSON data:_
 ## URL: /api/howto/:id
 
 _An example of the returned JSON data:_
-
 ```js
 {
   "message": "Successfully removed 1 posts."
