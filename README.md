@@ -36,7 +36,7 @@ The following endpoints are available to test the functionality of the model met
 
 ## User Registration and Login
 
-<a href="top">Top</a>
+<a href="#top">Top</a>
 
 [POST]
 ## URL: /api/auth/register
@@ -93,7 +93,7 @@ _An example of the returned JSON data:_
 
 ## How-To Endpoints
 
-<a href="top">Top</a>
+<a href="#top">Top</a>
 
 [POST]
 ## URL: /api/howto
@@ -168,3 +168,5 @@ _An example of the returned JSON data:_
   "message": "Successfully removed 1 posts."
 }
 ```
+
+<a href="#top">Top</a>
