@@ -11,6 +11,11 @@ function findByID(id) {
     .where({id})
 }
 
+function findByUserID(user_id) {
+  return db('howto')
+    .where({user_id})
+}
+
 // adds a new howto and returns what was submitted to the db
 function add(howto) {
   return db('howto')
@@ -40,6 +45,7 @@ function remove(id) {
 module.exports = {
   find,
   findByID,
+  findByUserID,
   add,
   update,
   remove
