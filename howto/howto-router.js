@@ -18,6 +18,10 @@ router.get('/', async (req, res) => {
   }
 })
 
+// TO-DO
+// get post by user ID
+
+
 // will reject if no user_id is in the body
 router.post('/', async (req, res) => {
   const newHowTo = req.body
