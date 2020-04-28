@@ -138,6 +138,49 @@ _An example of the returned JSON data:_
 ```
 
 ## [GET]
+### URL: /api/user/u/search?username=X
+
+#### Returns an array of a single user where X is the username
+
+_An example of the returned JSON data:_
+```js
+[
+  {
+    "id": 1,
+    "username": "edgar",
+    "email": "life_of_edgar@gmail.com"
+  }
+]
+```
+
+## [POST]
+### URL: /api/user/u/search
+
+#### Returns an array of a single user
+
+### Request body should include:
+| Input (case sensitive)  | Input Type    |
+| :---------------------- | :------------ |
+| username (required)     | string        |
+
+_An example of how the body should appear:_
+```js
+{
+	"username":"edgar",
+}
+```
+_An example of the returned JSON data:_
+```js
+[
+  {
+    "id": 1,
+    "username": "edgar",
+    "email": "life_of_edgar@gmail.com"
+  }
+]
+```
+
+## [GET]
 ### URL: /api/user/:id/post
 
 #### Returns an array of a single user's how-to's
