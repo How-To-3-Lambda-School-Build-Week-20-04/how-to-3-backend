@@ -9,9 +9,8 @@ function getOne(filter) {
   .where(filter)
 }
 
+// gets all howtos on a category
 function getHowtos(category_id) {
-  console.log(category_id)
-
   return db('howto_category as hc')
     .join('category as c', 'c.id', 'hc.category_id')
     .join('howto as h', 'h.id', 'hc.howto_id')
@@ -22,18 +21,28 @@ function getHowtos(category_id) {
     )
 }
 
+// gets all categories on a how-to
+function getCategories(howto_id) {
+  return db('howto_category as hc')
+    .join('category as c', 'c.id', 'hc.category_id')
+    .where({ howto_id })
+    .select('*')
+}
+
+// add a new category to the db
 function addCat(cat) {
   return db('category')
   .insert(cat)
   .returning('*')
 }
 
+// assign a category to a how-to
 async function assignCat({ howto_id, category_id }) {
-  const [cat_id] = await db('howto_category')
+  await db('howto_category')
     .insert({ howto_id, category_id })
-    .returning('category_id')
-
-  return getHowtos(category_id)
+    .returning('howto_id')
+  
+  return getCategories(howto_id)
 }
 
 function update(id, changes) {
@@ -63,5 +72,6 @@ module.exports = {
   assignCat,
   update,
   remove,
-  removeCat
+  removeCat,
+  getCategories
 };

@@ -34,7 +34,7 @@ router.post('/', validateCategoryInfo, async (req, res) => {
   }
 })
 
-router.get('/:id/howto', validateCategoryID, validateHowtoID, async (req, res) => {
+router.get('/:id/howto', validateCategoryID, async (req, res) => {
   const id = req.category[0].id
 try {
   const howtos = await Category.getHowtos(id);
@@ -62,21 +62,7 @@ router.post('/:id/howto', validateCategoryID, validateHowtoID, async (req, res) 
   } catch ({ message, stack }) {
     res.status(500).json({ error: 'Failed assign category to howto.', message, stack });
   }
-  
-} )
-
-/* req.body, req.category, req.howto
-{ howto_id: '1' }
-[ { id: 1, name: 'General' } ]
-{
-  id: 1,
-  title: 'How to Put on a Medical Mask',
-  post: 'Understand what a medical mask protects you from. 
-Medical or surgical masks are intended to cover both your mouth and nose. They are designed with material that can block large-particle droplets, splashes, sprays and splatter — all of which may contain viruses or bacteria that may be harmful to you.',
-  created_at: '2020-04-28 15:33:29',
-  user_id: 1
-}
-*/
+})
 
 // middleware
 
