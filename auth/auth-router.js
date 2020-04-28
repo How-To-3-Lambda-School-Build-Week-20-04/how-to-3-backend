@@ -45,7 +45,7 @@ function genToken(user) {
     userId: user.id,
     username: user.username
   }
-  const secret = process.env.TOKEN_SECRET
+  const secret = process.env.TOKEN_SECRET || 'sugarandspice'
   const options = {
     expiresIn: '3h'
   }
