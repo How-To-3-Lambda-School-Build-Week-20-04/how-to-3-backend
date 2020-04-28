@@ -138,6 +138,49 @@ _An example of the returned JSON data:_
 ```
 
 ## [GET]
+### URL: /api/user/u/search?username=X
+
+#### Returns an array of a single user where X is the username
+
+_An example of the returned JSON data:_
+```js
+[
+  {
+    "id": 1,
+    "username": "edgar",
+    "email": "life_of_edgar@gmail.com"
+  }
+]
+```
+
+## [POST]
+### URL: /api/user/u/search
+
+#### Returns an array of a single user
+
+### Request body should include:
+| Input (case sensitive)  | Input Type    |
+| :---------------------- | :------------ |
+| username (required)     | string        |
+
+_An example of how the body should appear:_
+```js
+{
+	"username":"edgar",
+}
+```
+_An example of the returned JSON data:_
+```js
+[
+  {
+    "id": 1,
+    "username": "edgar",
+    "email": "life_of_edgar@gmail.com"
+  }
+]
+```
+
+## [GET]
 ### URL: /api/user/:id/post
 
 #### Returns an array of a single user's how-to's
@@ -239,6 +282,104 @@ _An example of the returned JSON data:_
 {
   "message": "Successfully removed 1 posts."
 }
+```
+
+<a href="#top">Top</a>
+
+## Category Endpoints
+
+## [GET]
+### URL: /api/categories
+#### Returns an array of all categories
+
+_An example of the returned JSON data:_
+```js
+[
+  {
+    "id": 1,
+    "name": "General"
+  },
+  {
+    "id": 2,
+    "name": "Misc"
+  }
+]
+```
+
+## [POST]
+### URL: /api/categories
+
+
+### Request body should include:
+| Input (case sensitive)  | Input Type    |
+| :---------------------- | :------------ |
+| name (required)					| string        |
+
+_An example of how the body should appear:_
+```js
+{
+	"name":"Miscellaneous"
+}
+```
+
+_Returns the category's id as JSON data:_
+```js
+[
+  2
+]
+```
+
+## [POST]
+### URL: /api/categories/:id/howto
+#### Adds a category to a how-to
+
+### Request body should include:
+| Input (case sensitive)  | Input Type    |
+| :---------------------- | :------------ |
+| howto_id (required) 		| string        |
+
+_An example of how the body should appear:_
+```js
+{
+	"howto_id":"1"
+}
+```
+
+_Returns the how-to it was attached to in an array:_
+```js
+[
+  {
+    "category_name": "General",
+    "howto_id": 1,
+    "howto_title": "How to Put on a Medical Mask",
+    "howto_post": "Understand what a medical mask protects you from. Medical or surgical masks are intended to cover both your mouth and nose. They are designed with material that can block large-particle droplets, splashes, sprays and splatter — all of which may contain viruses or bacteria that may be harmful to you.",
+    "created_at": "2020-04-28 15:33:29"
+  }
+]
+```
+
+## [GET]
+### URL: /api/categories/:id/howto
+#### Returns all how-to's for a category, where the category is :id
+
+_Returns the how-to it was attached to in an array:_
+```js
+[
+  {
+    "category_name": "General",
+    "howto_id": 1,
+    "howto_title": "How to Put on a Medical Mask",
+    "howto_post": "Understand what a medical mask protects you from. Medical or surgical masks are intended to cover both your mouth and nose. They are designed with material that can block large-particle droplets, splashes, sprays and splatter — all of which may contain viruses or bacteria that may be harmful to you.",
+    "created_at": "2020-04-28 15:33:29"
+  },
+  {
+    "category_name": "General",
+    "howto_id": 2,
+    "howto_title": "How to Write a How-To",
+    "howto_post": "Fill out this field and it's basically done.",
+    "created_at": "2020-04-28 15:33:29"
+  }
+]
 ```
 
 <a href="#top">Top</a>

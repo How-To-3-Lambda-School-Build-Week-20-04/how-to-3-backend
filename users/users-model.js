@@ -8,10 +8,16 @@ function getAll() {
   .select('id', 'username', 'email')
 }
 
-// this is used in auth-router
+// this is used in auth-router MUST RETURN PASSWORD
 function getBy(filter) {
   return db('user')
     .where(filter)
+}
+
+async function getByUName(username) {
+  return db('user')
+    .where(username)
+    .select('id', 'username', 'email')
 }
 
 // returns a single user by their id
@@ -58,6 +64,7 @@ function remove(id) {
 module.exports = {
   getAll,
   getBy,
+  getByUName,
   getByID,
   getUserPosts,
   add,
