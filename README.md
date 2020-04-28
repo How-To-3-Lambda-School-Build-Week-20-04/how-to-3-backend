@@ -39,7 +39,7 @@ The following endpoints are available to test the functionality of the model met
 <a href="#top">Top</a>
 
 ## [POST]
-## URL: /api/auth/register
+### URL: /api/auth/register
 
 ### Request body should include:
 | Input (case sensitive)  | Input Type    |
@@ -67,7 +67,7 @@ _An example of the returned JSON data:_
 ```
 
 ## [POST]
-## URL: /api/auth/login
+### URL: /api/auth/login
 
 ### Request body should include:
 | Input (case sensitive)  | Input Type    |
@@ -96,8 +96,9 @@ _An example of the returned JSON data:_
 <a href="#top">Top</a>
 
 ## [GET]
-## URL: /api/user/
+### URL: /api/user/
 
+#### Returns an array of all users
 
 _An example of the returned JSON data:_
 ```js
@@ -121,8 +122,9 @@ _An example of the returned JSON data:_
 ```
 
 ## [GET]
-## URL: /api/user/:id
+### URL: /api/user/:id
 
+#### Returns an array of a single user
 
 _An example of the returned JSON data:_
 ```js
@@ -136,8 +138,9 @@ _An example of the returned JSON data:_
 ```
 
 ## [GET]
-## URL: /api/user/:id/post
+### URL: /api/user/:id/post
 
+#### Returns an array of a single user's how-to's
 
 _An example of the returned JSON data:_
 ```js
@@ -167,7 +170,7 @@ _An example of the returned JSON data:_
 <a href="#top">Top</a>
 
 ## [POST]
-## URL: /api/howto
+### URL: /api/howto
 
 ### Request body should include:
 | Input (case sensitive)  | Input Type    |
@@ -198,7 +201,7 @@ _An example of the returned JSON data:_
 ]
 ```
 ## [PUT]
-## URL: /api/howto/:id
+### URL: /api/howto/:id
 
 This endpoint does not require every field. It should update only what you give it.
 
@@ -229,7 +232,7 @@ _An example of the returned JSON data:_
 ```
 
 ## [DELETE]
-## URL: /api/howto/:id
+### URL: /api/howto/:id
 
 _An example of the returned JSON data:_
 ```js
