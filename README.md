@@ -166,7 +166,7 @@ _An example of the returned JSON data:_
 _An example of how the body should appear:_
 ```js
 {
-	"username":"edgar",
+	"username":"edgar"
 }
 ```
 _An example of the returned JSON data:_
