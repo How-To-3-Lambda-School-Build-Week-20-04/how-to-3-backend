@@ -5,15 +5,20 @@ const db = require('../data/dbConfig.js');
 // returns all users
 function getAll() {
   return db('user')
-  .select('id','username','email')
+  .select('id', 'username', 'email')
 }
 
 // this is used in auth-router
+function getBy(filter) {
+  return db('user')
+    .where(filter)
+}
+
 // returns a single user by their id
-function getBy(id) {
+function getByID(id) {
   return db('user')
     .where({id})
-    .select('id','username','email')
+    .select('id', 'username', 'email')
 }
 
 // returns a user's posts by their id
@@ -53,6 +58,7 @@ function remove(id) {
 module.exports = {
   getAll,
   getBy,
+  getByID,
   getUserPosts,
   add,
   update,

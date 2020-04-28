@@ -38,7 +38,7 @@ The following endpoints are available to test the functionality of the model met
 
 <a href="#top">Top</a>
 
-[POST]
+## [POST]
 ## URL: /api/auth/register
 
 ### Request body should include:
@@ -66,7 +66,7 @@ _An example of the returned JSON data:_
 }
 ```
 
-[POST]
+## [POST]
 ## URL: /api/auth/login
 
 ### Request body should include:
@@ -91,11 +91,82 @@ _An example of the returned JSON data:_
 }
 ```
 
+## User Endpoints
+
+<a href="#top">Top</a>
+
+## [GET]
+## URL: /api/user/
+
+
+_An example of the returned JSON data:_
+```js
+[
+  {
+    "id": 1,
+    "username": "edgar",
+    "email": "life_of_edgar@gmail.com"
+  },
+  {
+    "id": 2,
+    "username": "gregory",
+    "email": "greg@gregmail.com"
+  },
+  {
+    "id": 3,
+    "username": "tim_the_enchanter",
+    "email": "enchanter_tim@gmail.com"
+  }
+]
+```
+
+## [GET]
+## URL: /api/user/:id
+
+
+_An example of the returned JSON data:_
+```js
+[
+  {
+    "id": 1,
+    "username": "edgar",
+    "email": "life_of_edgar@gmail.com"
+  }
+]
+```
+
+## [GET]
+## URL: /api/user/:id/post
+
+
+_An example of the returned JSON data:_
+```js
+[
+  {
+    "user_id": 1,
+    "howto_id": 1,
+    "username": "edgar",
+    "title": "How to Put on a Medical Mask",
+    "post": "Understand what a medical mask protects you from. Medical or surgical masks are intended to cover both your mouth and nose. They are designed with material that can block large-particle droplets, splashes, sprays and splatter — all of which may contain viruses or bacteria that may be harmful to you.",
+    "created_at": "2020-04-28 15:33:29"
+  },
+  {
+    "user_id": 1,
+    "howto_id": 2,
+    "username": "edgar",
+    "title": "How to Write a How-To",
+    "post": "Fill out this field and it's basically done.",
+    "created_at": "2020-04-28 15:33:29"
+  }
+]
+```
+
+
 ## How-To Endpoints
 
 <a href="#top">Top</a>
 
-[POST]
+## [POST]
 ## URL: /api/howto
 
 ### Request body should include:
@@ -126,7 +197,7 @@ _An example of the returned JSON data:_
   }
 ]
 ```
-[PUT]
+## [PUT]
 ## URL: /api/howto/:id
 
 This endpoint does not require every field. It should update only what you give it.
@@ -157,7 +228,7 @@ _An example of the returned JSON data:_
 ]
 ```
 
-[DELETE]
+## [DELETE]
 ## URL: /api/howto/:id
 
 _An example of the returned JSON data:_

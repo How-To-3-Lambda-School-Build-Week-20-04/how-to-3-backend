@@ -22,7 +22,7 @@ router.get('/:id', async (req, res) => {
   const id = req.params.id
 
   try {
-    User.getBy(id)
+    User.getByID(id)
     .then(found => {
       res.status(200).json(found)
     })
