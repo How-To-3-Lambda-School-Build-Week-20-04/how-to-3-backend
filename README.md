@@ -119,8 +119,8 @@ _An example of the returned JSON data:_
 [
   {
     "id": 3,
-		"title":"Edgar's first how-to post",
-		"post":"Instructions will go in here.",
+    "title":"Edgar's first how-to post",
+    "post":"Instructions will go in here.",
     "created_at": "2020-04-28 00:58:30",
     "user_id": 1
   }
@@ -151,8 +151,8 @@ _An example of the returned JSON data:_
 [
   {
     "id": 3,
-		"title":"Edgar's first how-to post",
-		"post":"Instructions will go in here.",
+    "title":"Edgar's first how-to post",
+    "post":"Instructions will go in here.",
     "created_at": "2020-04-28 00:58:30",
     "user_id": 1
   }
