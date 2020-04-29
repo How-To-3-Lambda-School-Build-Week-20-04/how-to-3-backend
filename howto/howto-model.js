@@ -22,7 +22,7 @@ async function find() {
   )
 }
 
-// returns a howto from the db by its id
+// returns a how-to from the db by its id
 async function findByID(id) {
   const howto = await db('howto').where({id}).first()
   
@@ -30,6 +30,7 @@ async function findByID(id) {
   
 }
 
+// returns a how-to from the db by the user's id
 async function findByUserID(user_id) {
   const howto = await db('howto').where({user_id})
   
