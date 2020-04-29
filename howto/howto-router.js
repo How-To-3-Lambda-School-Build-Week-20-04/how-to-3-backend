@@ -134,7 +134,7 @@ async function validateUserID(req, res, next) {
       }
     }
   } catch ({ message, stack }) {
-    res.status(500).json({ error: 'Failed assign category to howto.', message, stack });
+    res.status(500).json({ error: 'Failed validation check.', message, stack });
   }
 }
 
