@@ -4,7 +4,12 @@ const { findByID } = require("../howto/howto-model");
 // return user's like on a post
 
 // return all likes on a post
-
+function getHowtoLikes(howtoId) {
+  console.log(howtoId);
+  return db("likes")
+    .join("howto", "howto.id", "likes.howto_id")
+    .where({ howto_id: howtoId });
+}
 // add a like to a post
 function addLike(like) {
   console.log(like, "like from model");
@@ -18,4 +23,4 @@ function addLike(like) {
 
 // remove a like from a post
 
-module.exports = { addLike };
+module.exports = { addLike, getHowtoLikes };
