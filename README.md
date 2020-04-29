@@ -189,34 +189,6 @@ _An example of the returned JSON data:_
 ]
 ```
 
-## [GET]
-### URL: /api/user/:id/post
-
-#### Returns an array of a single user's how-to's
-
-_An example of the returned JSON data:_
-```js
-[
-  {
-    "user_id": 1,
-    "howto_id": 1,
-    "username": "edgar",
-    "title": "How to Put on a Medical Mask",
-    "post": "Understand what a medical mask protects you from. Medical or surgical masks are intended to cover both your mouth and nose. They are designed with material that can block large-particle droplets, splashes, sprays and splatter — all of which may contain viruses or bacteria that may be harmful to you.",
-    "created_at": "2020-04-28 15:33:29"
-  },
-  {
-    "user_id": 1,
-    "howto_id": 2,
-    "username": "edgar",
-    "title": "How to Write a How-To",
-    "post": "Fill out this field and it's basically done.",
-    "created_at": "2020-04-28 15:33:29"
-  }
-]
-```
-
-
 ## How-To Endpoints
 
 <a href="#top">Top</a>
@@ -240,6 +212,7 @@ _An example of the returned JSON data:_
     "post": "Understand what a medical mask protects you from. Medical or surgical masks are intended to cover both your mouth and nose. They are designed with material that can block large-particle droplets, splashes, sprays and splatter — all of which may contain viruses or bacteria that may be harmful to you.",
     "created_at": "2020-04-28 15:33:29",
     "user_id": 1,
+    "likes": 4,
     "categories": [
       {
         "id": 1,
@@ -293,10 +266,11 @@ _An example of the returned JSON data:_
 ```js
 {
   "id": 1,
-	"title":"Edgar's first how-to post",
-	"post":"Instructions will go in here.",
-  "created_at": "2020-04-29 00:40:13",
-	"user_id": 1,
+  "title": "edgar's new how-to",
+  "post": "this probably needs more steps",
+  "created_at": "2020-04-29 20:55:53",
+  "user_id": 1,
+  "likes": 0,
   "categories": []
 }
 ```
@@ -324,16 +298,15 @@ _An example of how the body should appear:_
 _An example of the returned JSON data:_
 
 ```js
-[
-  {
-    "id": 3,
-    "title":"Edgar's best how-to post",
-    "post":"Instructions will go in here.",
-    "created_at": "2020-04-28 00:58:30",
-    "user_id": 1,
-    "categories": []
-  }
-]
+{
+  "id": 1,
+  "title": "Edgar's best how-to post",
+  "post": "this probably needs more steps",
+  "created_at": "2020-04-29 20:55:53",
+  "user_id": 1,
+  "likes": 0,
+  "categories": []
+}
 ```
 
 ## [DELETE]
@@ -382,11 +355,15 @@ _An example of how the body should appear:_
 }
 ```
 
+_An example of the returned JSON body:_
+```js
+{
+  "id": 1,
+  "name": "Miscellaneous"
+}
+```
+
 <a href="#top">Top</a>
-
-
-
-
 
 ## "LIKES" endpoints-------------------------------------------------
 
@@ -437,6 +414,7 @@ _Returns the how-to and the categories on the how-to:_
   "post": "Understand what a medical mask protects you from. Medical or surgical masks are intended to cover both your mouth and nose. They are designed with material that can block large-particle droplets, splashes, sprays and splatter — all of which may contain viruses or bacteria that may be harmful to you.",
   "created_at": "2020-04-28 15:33:29",
   "user_id": 1,
+  "likes": 4,
   "categories": [
     {
       "id": 1,
@@ -466,14 +444,16 @@ _Returns the how-to it was attached to in an array:_
     "howto_id": 1,
     "howto_title": "How to Put on a Medical Mask",
     "howto_post": "Understand what a medical mask protects you from. Medical or surgical masks are intended to cover both your mouth and nose. They are designed with material that can block large-particle droplets, splashes, sprays and splatter — all of which may contain viruses or bacteria that may be harmful to you.",
-    "created_at": "2020-04-28 15:33:29"
+    "created_at": "2020-04-28 15:33:29",
+    "likes": 4
   },
   {
     "category_name": "General",
     "howto_id": 2,
     "howto_title": "How to Write a How-To",
     "howto_post": "Fill out this field and it's basically done.",
-    "created_at": "2020-04-28 15:33:29"
+    "created_at": "2020-04-28 15:33:29",
+    "likes": 2
   }
 ]
 ```
@@ -497,6 +477,7 @@ _Example of what will be returned:_
   "post": "Understand what a medical mask protects you from. Medical or surgical masks are intended to cover both your mouth and nose. They are designed with material that can block large-particle droplets, splashes, sprays and splatter — all of which may contain viruses or bacteria that may be harmful to you.",
   "created_at": "2020-04-28 15:33:29",
   "user_id": 1,
+  "likes": 4,
   "categories": [
     {
       "id": 1,

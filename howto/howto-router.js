@@ -1,8 +1,7 @@
 const router = require('express').Router();
 const Howto = require('./howto-model');
 const User = require('../users/users-model');
-
-// all routes are protected by requiring a token currently
+const { validateUserID } = require('./howto-helper')
 
 // returns all posts with any attached categories
 router.get('/', async (req, res) => {
@@ -14,8 +13,8 @@ router.get('/', async (req, res) => {
     .catch(err => {
       res.status(500).json({ error: "Failed to return the posts." })
     })
-  } catch (error) {
-    res.status(500).json({ error: "Unable to contact the database." })
+  } catch ({ message, stack }) {
+    res.status(500).json({ error: 'Failed to get the posts.', message, stack });
   }
 })
 
@@ -29,8 +28,8 @@ router.get('/:id', async (req, res) => {
     .catch(err => {
       res.status(500).json({ error: "Failed to return the posts." })
     })
-  } catch (error) {
-    res.status(500).json({ error: "Unable to contact the database." })
+  } catch ({ message, stack }) {
+    res.status(500).json({ error: 'Failed to add the post.', message, stack });
   }
 })
 
@@ -44,8 +43,8 @@ router.get('/user/:id', async (req, res) => {
     .catch(err => {
       res.status(500).json({ error: "Failed to return the posts." })
     })
-  } catch (error) {
-    res.status(500).json({ error: "Unable to contact the database." })
+  } catch ({ message, stack }) {
+    res.status(500).json({ error: 'Failed to get the post.', message, stack });
   }
 })
 
@@ -61,9 +60,9 @@ router.post('/', async (req, res) => {
       .catch(err => {
         res.status(400).json({ error: "Check your body.", err })
       })
-  } catch (error) {
-    res.status(500).json({ error: "Problem saving to database." })
-}
+  } catch ({ message, stack }) {
+    res.status(500).json({ error: 'Failed to add category.', message, stack });
+  }
 });
 
 // id should be the howto's id
@@ -79,8 +78,8 @@ router.put('/:id', validateUserID, async (req, res) => {
       .catch(() => {
         res.status(500).json({ error: "Something went wrong returning the updated post." })
       });
-  } catch (err) {
-    res.status(500).json({ error: 'Something went wrong.' })
+  } catch ({ message, stack }) {
+    res.status(500).json({ error: 'Failed to update the post.', message, stack });
   }
 })
 
@@ -96,45 +95,9 @@ router.delete('/:id/delete', validateUserID, async (req, res) => {
     .catch(err => {
       res.status(500).json({ error: "Unable to remove post at this time." })
     })
-  } catch (error) {
-    res.status(500).json({ error: "Unable to remove post at this time." })
+  } catch ({ message, stack }) {
+    res.status(500).json({ error: 'Failed to delete the post.', message, stack });
   }
 })
-
-// middleware
-
-// checks to see if the user's ID matches what they're trying to edit
-async function validateUserID(req, res, next) {
-  const how_id = req.params.id
-  try {
-    if(req.method === 'PUT') {
-      if(!req.body || !req.body.user_id) {
-        res.status(400).json({ error: "Check your body." })
-      } else {
-        const [post_exists] = await Howto.findByUserID(req.body.user_id)
-  
-        if(post_exists.user_id === req.body.user_id) {
-          next()
-        } else {
-          res.status(403).json({ error: "That's not yours. "})
-        }
-      }
-    } else { // this will run for DELETE request
-      if(!req.query.user_id) {
-        res.status(400).json({ error: "Check your query parameters." })
-      } else {
-        const [post_exists] = await Howto.findByUserID(req.query.user_id)
-
-        if(post_exists.user_id === parseInt(req.query.user_id)) {
-          next()
-        } else {
-          res.status(403).json({ error: "That's not yours. "})
-        }
-      }
-    }
-  } catch ({ message, stack }) {
-    res.status(500).json({ error: 'Failed validation check.', message, stack });
-  }
-}
 
 module.exports = router;

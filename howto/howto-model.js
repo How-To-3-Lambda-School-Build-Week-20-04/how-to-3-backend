@@ -1,5 +1,6 @@
 const db = require('../data/dbConfig');
 const Cat = require('../category/category-model');
+const Likes = require('../likes/likes-model');
 
 // return all posts
 async function find() {
@@ -12,10 +13,11 @@ async function find() {
       .where({ howto_id: i.id })
       .select('c.id', 'c.name')
 
-      // todo: add likes
+      const likes = await Likes.getHowtoLikes(i.id)
 
       return i = {
         ...i,
+        likes: likes.length,
         categories: cat
       }
     })
@@ -40,10 +42,11 @@ async function findByUserID(user_id) {
       .where({ howto_id: i.id })
       .select('c.id', 'c.name')
 
-      // todo: add likes
+      const likes = await Likes.getHowtoLikes(i.id)
 
       return i = {
         ...i,
+        likes: likes.length,
         categories: cat
       }
     })
@@ -69,12 +72,21 @@ function update(changes, id) {
     })
 }
 
-// removes a howto, returns amount deleted
-function remove(id) {
+// removes a howto and all connections
+async function remove(id) {
+  await db('howto_category')
+    .where({ howto_id: id })
+    .del()
+
+  await db('likes')
+    .where({howto_id: id})
+    .del()
+
   return db('howto')
     .where({ id })
     .del();
 }
+
 
 module.exports = {
   find,

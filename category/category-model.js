@@ -1,4 +1,5 @@
 const db = require('../data/dbConfig')
+const Likes = require('../likes/likes-model')
 
 function getAll() {
   return db('category')
@@ -6,12 +7,12 @@ function getAll() {
 
 function getOne(filter) {
   return db('category')
-  .where(filter)
+  .where(filter).first()
 }
 
 // gets all howtos on a category
-function getHowtos(category_id) {
-  return db('howto_category as hc')
+async function getHowtos(category_id) {
+  const howto = await db('howto_category as hc')
     .join('category as c', 'c.id', 'hc.category_id')
     .join('howto as h', 'h.id', 'hc.howto_id')
     .where({category_id})
@@ -19,7 +20,19 @@ function getHowtos(category_id) {
       'c.name as category_name',
       'h.id as howto_id', 'h.title as howto_title', 'h.post as howto_post', 'h.created_at'
     )
+
+    return Promise.all(
+      howto.map(async i => {
+        const likes = await Likes.getHowtoLikes(i.howto_id)
+
+        return i = {
+          ...i,
+          likes: likes.length
+        }
+      })
+    )
 }
+
 
 // gets all categories on a how-to
 async function getCategories(howto_id) {
@@ -30,19 +43,23 @@ async function getCategories(howto_id) {
 
   return howto = await db('howto')
     .where({id: howto_id}).first()
-    .then(next => {
+    .then(async next => {
+      const likes = await Likes.getHowtoLikes(howto_id)
+
       return next = {
         ...next,
+        likes: likes.length,
         categories
       }
     })
 }
 
 // add a new category to the db
-function addCat(cat) {
-  return db('category')
+async function addCat(cat) {
+  const [newCat] = await db('category')
   .insert(cat)
-  .returning('*')
+  console.log(newCat)
+  return getOne({id: newCat})
 }
 
 // assign a category to a how-to

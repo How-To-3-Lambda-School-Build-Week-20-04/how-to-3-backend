@@ -18,6 +18,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+// adds a new category to the db
 router.post('/', validateCategoryInfo, async (req, res) => {
   const category = req.body
 
@@ -34,8 +35,9 @@ router.post('/', validateCategoryInfo, async (req, res) => {
   }
 })
 
+// returns how-tos that a category exists on
 router.get('/:id/howto', validateCategoryID, async (req, res) => {
-  const id = req.category[0].id
+  const id = req.category.id
 try {
   const howtos = await Category.getHowtos(id);
   if (howtos.length === 0) {
@@ -55,7 +57,7 @@ router.post('/:id/howto', validateCategoryID, validateHowtoID, async (req, res) 
     if(!req.body || !req.body.howto_id) {
       res.status(400).json({ error: "Missing field required: howto_id."})
     } else {
-      req.body.category_id = req.category[0].id
+      req.body.category_id = req.category.id
       await Category.assignCat(req.body)
       .then(HowtoCat => {
         res.status(201).json(HowtoCat)
@@ -69,7 +71,7 @@ router.post('/:id/howto', validateCategoryID, validateHowtoID, async (req, res) 
 // removes a category from the database, and removes all howto connections
 router.delete('/:id', validateCategoryID, async (req, res) => {
   try {
-    const id = req.category[0].id
+    const id = req.category.id
     await Category.remove(id)
     .then(removed => {
       res.status(201).json(removed)
@@ -85,7 +87,7 @@ router.delete('/:id/howto', validateCategoryID, validateHowtoID, async (req, res
     if(!req.body || !req.body.howto_id) {
       res.status(400).json({ error: "Missing field required: howto_id."})
     } else {
-      req.body.category_id = req.category[0].id
+      req.body.category_id = req.category.id
       await Category.removeCat(req.body)
       .then(response => {
         res.status(201).json(response)
@@ -99,7 +101,7 @@ router.delete('/:id/howto', validateCategoryID, validateHowtoID, async (req, res
 // middleware
 
 function validateCategoryID(req, res, next) {
-  const id = req.params.id
+  const id = parseInt(req.params.id)
   return Category.getOne({id})
     .then(category => {
       if (category.length === 0) {
