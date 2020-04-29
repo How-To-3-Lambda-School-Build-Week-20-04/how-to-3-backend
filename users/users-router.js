@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const User = require('./users-model.js');
+const Howto = require('../howto/howto-model')
 
 // get all users
 
@@ -63,7 +64,7 @@ router.get('/:id/posts', async (req, res) => {
   const id = req.params.id
 
   try {
-    User.getUserPosts(id)
+    Howto.findByUserID(id)
     .then(found => {
       res.status(200).json(found)
     })
