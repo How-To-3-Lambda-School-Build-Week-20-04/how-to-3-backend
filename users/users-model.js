@@ -1,4 +1,5 @@
 const db = require('../data/dbConfig.js');
+const Howto = require('../howto/howto-model')
 
 // this file is used by auth-router
 
@@ -25,14 +26,6 @@ function getByID(id) {
   return db('user')
     .where({id})
     .select('id', 'username', 'email')
-}
-
-// returns a user's posts by their id
-function getUserPosts(user_id) {
-  return db('howto as h')
-    .join('user as u', 'h.user_id', 'u.id')
-    .where({user_id})
-    .select('u.id as user_id', 'h.id as howto_id', 'u.username', 'h.title', 'h.post', 'h.created_at')
 }
 
 // this is also used in auth-router
@@ -66,7 +59,6 @@ module.exports = {
   getBy,
   getByUName,
   getByID,
-  getUserPosts,
   add,
   update,
   remove

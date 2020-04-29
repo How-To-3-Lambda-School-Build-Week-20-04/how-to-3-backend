@@ -27,7 +27,6 @@ async function findByID(id) {
   const howto = await db('howto').where({id}).first()
   
   return Cat.getCategories(howto.id)
-  
 }
 
 // returns a how-to from the db by the user's id
@@ -36,7 +35,7 @@ async function findByUserID(user_id) {
   
   return Promise.all(
     howto.map(async i => {
-      const cat =  await db('howto_category as hc')
+      const cat = await db('howto_category as hc')
       .join('category as c', 'c.id', 'hc.category_id')
       .where({ howto_id: i.id })
       .select('c.id', 'c.name')
