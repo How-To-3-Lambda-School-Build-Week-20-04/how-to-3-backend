@@ -8,7 +8,8 @@ function getHowtoLikes(howtoId) {
   console.log(howtoId);
   return db("likes")
     .join("howto", "howto.id", "likes.howto_id")
-    .where({ howto_id: howtoId });
+    .where({ howto_id: howtoId })
+    .select("likes.id", "likes.user_id", "likes.howto_id");
 }
 // add a like to a post
 function addLike(like) {
