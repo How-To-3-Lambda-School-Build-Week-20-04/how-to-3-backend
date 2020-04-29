@@ -54,6 +54,7 @@ async function assignCat({ howto_id, category_id }) {
   return getCategories(howto_id)
 }
 
+// not active, updates a category
 function update(id, changes) {
   return db('category')
     .where({ id })
@@ -62,6 +63,7 @@ function update(id, changes) {
 }
 
 
+// removes a category and its connections to any how-to posts
 async function remove(id) {
   await db('howto_category')
     .where('category_id', '=', id)
@@ -72,7 +74,7 @@ async function remove(id) {
     .del();
 }
 
-
+// removes a how-to and category connection, returns how-to and its remaining categories
 async function removeCat({ howto_id, category_id }) {
   await db('howto_category')
     .where({ howto_id, category_id })

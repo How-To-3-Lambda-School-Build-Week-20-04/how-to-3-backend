@@ -3,8 +3,8 @@ const Howto = require('./howto-model');
 const User = require('../users/users-model');
 
 // all routes are protected by requiring a token currently
-// certain routes might require further middleware before making actions to db
 
+// returns all posts with any attached categories
 router.get('/', async (req, res) => {
   try {
     Howto.find()
@@ -19,6 +19,7 @@ router.get('/', async (req, res) => {
   }
 })
 
+// returns a single post by its id
 router.get('/:id', async (req, res) => {
   try {
     Howto.findByID(req.params.id)
@@ -33,6 +34,7 @@ router.get('/:id', async (req, res) => {
   }
 })
 
+// returns a post by user's id
 router.get('/user/:id', async (req, res) => {
   try {
     Howto.findByUserID(req.params.id)
@@ -46,10 +48,6 @@ router.get('/user/:id', async (req, res) => {
     res.status(500).json({ error: "Unable to contact the database." })
   }
 })
-
-// TO-DO
-// get post by user ID
-
 
 // will reject if no user_id is in the body
 router.post('/', async (req, res) => {
@@ -105,6 +103,7 @@ router.delete('/:id/delete', validateUserID, async (req, res) => {
 
 // middleware
 
+// checks to see if the user's ID matches what they're trying to edit
 async function validateUserID(req, res, next) {
   const how_id = req.params.id
   try {
@@ -134,7 +133,7 @@ async function validateUserID(req, res, next) {
       }
     }
   } catch ({ message, stack }) {
-    res.status(500).json({ error: 'Failed assign category to howto.', message, stack });
+    res.status(500).json({ error: 'Failed validation check.', message, stack });
   }
 }
 
