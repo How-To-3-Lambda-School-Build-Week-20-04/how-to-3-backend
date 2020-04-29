@@ -212,6 +212,52 @@ _An example of the returned JSON data:_
 
 <a href="#top">Top</a>
 
+## [GET]
+
+#### Get all How-to's
+#### URL: /api/howto
+
+#### Get a single how-to by its ID
+#### URL: /api/howto/:id
+
+#### Get a single user's how-to's
+#### URL: /api/howto/user/:id
+
+```js
+[
+  {
+    "id": 1,
+    "title": "How to Put on a Medical Mask",
+    "post": "Understand what a medical mask protects you from. Medical or surgical masks are intended to cover both your mouth and nose. They are designed with material that can block large-particle droplets, splashes, sprays and splatter — all of which may contain viruses or bacteria that may be harmful to you.",
+    "created_at": "2020-04-28 15:33:29",
+    "user_id": 1,
+    "categories": [
+      {
+        "id": 1,
+        "name": "General"
+      },
+      {
+        "id": 2,
+        "name": "Misc"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "How to Write a How-To",
+    "post": "Fill out this field and it's basically done.",
+    "created_at": "2020-04-28 15:33:29",
+    "user_id": 1,
+    "categories": [
+      {
+        "id": 2,
+        "name": "Misc"
+      }
+    ]
+  }
+]
+```
+
 ## [POST]
 ### URL: /api/howto
 
@@ -393,5 +439,41 @@ _Returns the how-to it was attached to in an array:_
   }
 ]
 ```
+
+## [DELETE]
+### URL: /api/categories/:id/howto
+#### Removes a category from a how-to and returns that how-to and any current categories
+
+_Example request to /api/categories/2/howto_
+```js
+{
+	"howto_id":"1"
+}
+```
+
+_Example of what will be returned:_
+```js
+{
+  "id": 1,
+  "title": "How to Put on a Medical Mask",
+  "post": "Understand what a medical mask protects you from. Medical or surgical masks are intended to cover both your mouth and nose. They are designed with material that can block large-particle droplets, splashes, sprays and splatter — all of which may contain viruses or bacteria that may be harmful to you.",
+  "created_at": "2020-04-28 15:33:29",
+  "user_id": 1,
+  "categories": [
+    {
+      "id": 1,
+      "name": "General"
+    },
+    {
+      "id": 3,
+      "name": "Third category"
+    }
+  ]
+}
+```
+
+## [DELETE]
+### URL: /api/categories/:id
+#### Completely removes a category from the database, returns 1 on success
 
 <a href="#top">Top</a>

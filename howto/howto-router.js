@@ -18,6 +18,34 @@ router.get('/', async (req, res) => {
   }
 })
 
+router.get('/:id', async (req, res) => {
+  try {
+    Howto.findByID(req.params.id)
+    .then(found => {
+      res.status(200).json(found)
+    })
+    .catch(err => {
+      res.status(500).json({ error: "Failed to return the posts." })
+    })
+  } catch (error) {
+    res.status(500).json({ error: "Unable to contact the database." })
+  }
+})
+
+router.get('/user/:id', async (req, res) => {
+  try {
+    Howto.findByUserID(req.params.id)
+    .then(found => {
+      res.status(200).json(found)
+    })
+    .catch(err => {
+      res.status(500).json({ error: "Failed to return the posts." })
+    })
+  } catch (error) {
+    res.status(500).json({ error: "Unable to contact the database." })
+  }
+})
+
 // TO-DO
 // get post by user ID
 

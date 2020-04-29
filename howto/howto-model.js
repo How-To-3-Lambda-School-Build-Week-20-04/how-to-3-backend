@@ -1,19 +1,53 @@
-const db = require('../data/dbConfig.js');
+const db = require('../data/dbConfig');
+const Cat = require('../category/category-model');
 
 // return all posts
-function find() {
-  return db('howto')
+async function find() {
+  const howto = await db('howto')
+
+  return Promise.all(
+    howto.map(async i => {
+      const cat =  await db('howto_category as hc')
+      .join('category as c', 'c.id', 'hc.category_id')
+      .where({ howto_id: i.id })
+      .select('c.id', 'c.name')
+
+      // todo: add likes
+
+      return i = {
+        ...i,
+        categories: cat
+      }
+    })
+  )
 }
 
 // returns a howto from the db by its id
-function findByID(id) {
-  return db('howto')
-    .where({id})
+async function findByID(id) {
+  const howto = await db('howto').where({id}).first()
+  
+  return Cat.getCategories(howto.id)
+  
 }
 
-function findByUserID(user_id) {
-  return db('howto')
-    .where({user_id})
+async function findByUserID(user_id) {
+  const howto = await db('howto').where({user_id})
+  
+  return Promise.all(
+    howto.map(async i => {
+      const cat =  await db('howto_category as hc')
+      .join('category as c', 'c.id', 'hc.category_id')
+      .where({ howto_id: i.id })
+      .select('c.id', 'c.name')
+
+      // todo: add likes
+
+      return i = {
+        ...i,
+        categories: cat
+      }
+    })
+  )
 }
 
 // adds a new howto and returns what was submitted to the db
