@@ -296,12 +296,14 @@ This endpoint does not require every field. It should update only what you give 
 ### Request body should include:
 | Input (case sensitive)  | Input Type    |
 | :---------------------- | :------------ |
+| user_id (required)      | int           |
 | title     							| string        |
 | post 					     			| string        |
 
 _An example of how the body should appear:_
 ```js
 {
+  "user_id": 1,
 	"title":"Edgar's best how-to post"
 }
 ```
@@ -321,14 +323,11 @@ _An example of the returned JSON data:_
 ```
 
 ## [DELETE]
-### URL: /api/howto/:id
+### URL: /api/howto/:id/delete?user_id=X
 
-_An example of the returned JSON data:_
-```js
-{
-  "message": "Successfully removed 1 posts."
-}
-```
+#### Requires the user's ID to be passed in as X
+
+Returns boolean (1 on success, 0 on fail)
 
 <a href="#top">Top</a>
 
@@ -474,6 +473,6 @@ _Example of what will be returned:_
 
 ## [DELETE]
 ### URL: /api/categories/:id
-#### Completely removes a category from the database, returns 1 on success
+#### Completely removes a category from the database, returns boolean (1 on success, 0 on fail)
 
 <a href="#top">Top</a>

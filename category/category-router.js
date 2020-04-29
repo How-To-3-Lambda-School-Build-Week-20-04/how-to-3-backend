@@ -71,8 +71,8 @@ router.delete('/:id', validateCategoryID, async (req, res) => {
   try {
     const id = req.category[0].id
     await Category.remove(id)
-    .then(HowtoCat => {
-      res.status(201).json(HowtoCat)
+    .then(removed => {
+      res.status(201).json(removed)
     })
   } catch ({ message, stack }) {
     res.status(500).json({ error: 'Failed assign category to howto.', message, stack });
@@ -87,8 +87,8 @@ router.delete('/:id/howto', validateCategoryID, validateHowtoID, async (req, res
     } else {
       req.body.category_id = req.category[0].id
       await Category.removeCat(req.body)
-      .then(HowtoCat => {
-        res.status(201).json(HowtoCat)
+      .then(response => {
+        res.status(201).json(response)
       })
     }
   } catch ({ message, stack }) {
