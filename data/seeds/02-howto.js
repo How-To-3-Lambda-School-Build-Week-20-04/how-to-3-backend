@@ -10,6 +10,16 @@ exports.seed = function(knex) {
           title: "How to Put on a Medical Mask",
           post: "Understand what a medical mask protects you from. Medical or surgical masks are intended to cover both your mouth and nose. They are designed with material that can block large-particle droplets, splashes, sprays and splatter — all of which may contain viruses or bacteria that may be harmful to you."
         },
+        {
+          user_id: 1,
+          title: "How to Write a How-To",
+          post: "Fill out this field and it's basically done."
+        },
+        {
+          user_id: 2,
+          title: "Me Greg",
+          post: "Greg make write good how to."
+        },
       ]);
     });
 };
