@@ -2,7 +2,7 @@ const router = require('express').Router();
 const User = require('./users-model.js');
 
 // get all users
-/*
+
 router.get('/', async (req, res) => {
   try {
     User.getAll()
@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
     res.status(500).json({ error: "Unable to contact the database." })
   }
 })
-*/
+
 
 // get a user by ID
 router.get('/:id', async (req, res) => {

@@ -29,10 +29,10 @@ async function getCategories(howto_id) {
     .select('c.id', 'c.name')
 
   return howto = await db('howto')
-    .where({id: howto_id})
+    .where({id: howto_id}).first()
     .then(next => {
-      return next[0] = {
-        ...next[0],
+      return next = {
+        ...next,
         categories
       }
     })
@@ -61,16 +61,24 @@ function update(id, changes) {
     .returning('*');
 }
 
-function remove(id) {
+
+async function remove(id) {
+  await db('howto_category')
+    .where('category_id', '=', id)
+    .del()
+    
   return db('category')
     .where({ id })
     .del();
 }
 
-async function removeCat({ howto_id, category_id }) {
-  await db('howto_category').where({ howto_id, category_id }).del();
 
-  return getHowtos(category_id);
+async function removeCat({ howto_id, category_id }) {
+  await db('howto_category')
+    .where({ howto_id, category_id })
+    .del();
+
+  return getCategories(howto_id);
 }
 
 module.exports = {

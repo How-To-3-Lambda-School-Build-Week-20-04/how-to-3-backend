@@ -50,7 +50,6 @@ catch ({ message, stack }) {
 })
 
 // post new category to how-to
-// requires name, howto_id, and category_id
 router.post('/:id/howto', validateCategoryID, validateHowtoID, async (req, res) => {
   try {
     if(!req.body || !req.body.howto_id) {
@@ -58,6 +57,36 @@ router.post('/:id/howto', validateCategoryID, validateHowtoID, async (req, res) 
     } else {
       req.body.category_id = req.category[0].id
       await Category.assignCat(req.body)
+      .then(HowtoCat => {
+        res.status(201).json(HowtoCat)
+      })
+    }
+  } catch ({ message, stack }) {
+    res.status(500).json({ error: 'Failed assign category to howto.', message, stack });
+  }
+})
+
+// removes a category from the database, and removes all howto connections
+router.delete('/:id', validateCategoryID, async (req, res) => {
+  try {
+    const id = req.category[0].id
+    await Category.remove(id)
+    .then(HowtoCat => {
+      res.status(201).json(HowtoCat)
+    })
+  } catch ({ message, stack }) {
+    res.status(500).json({ error: 'Failed assign category to howto.', message, stack });
+  }
+})
+
+// removes a category from a how-to
+router.delete('/:id/howto', validateCategoryID, validateHowtoID, async (req, res) => {
+  try {
+    if(!req.body || !req.body.howto_id) {
+      res.status(400).json({ error: "Missing field required: howto_id."})
+    } else {
+      req.body.category_id = req.category[0].id
+      await Category.removeCat(req.body)
       .then(HowtoCat => {
         res.status(201).json(HowtoCat)
       })
@@ -84,8 +113,8 @@ function validateCategoryID(req, res, next) {
 function validateHowtoID(req, res, next) {
   const id = req.body.howto_id
 
-  if (req.method === 'POST') { 
-    return Howto.findByID(id).first()
+  if (req.method === 'POST' || req.method === 'DELETE') { 
+    return Howto.findByID(id)
     .then(howto => {
       if (!howto) {
         res.status(404).json({ message: 'How-to with the specified id was not found.' });
@@ -95,7 +124,7 @@ function validateHowtoID(req, res, next) {
       }
     });
   } else {
-    return Howto.findByID(req.query.howid).first()
+    return Howto.findByID(req.query.howid)
     .then(howto => {
       if (!howto) {
         res.status(404).json({ message: 'How-to with the specified id was not found.' });
