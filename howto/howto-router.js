@@ -76,18 +76,14 @@ router.put('/:id', async (req, res) => {
 
   try {
     Howto.findByID(id) // check to see if the post exists first
-    .then(found => {
-      if(found.length > 0) {
-        Howto.update(changes, id)
-          .then(updated => {
-            res.status(200).json(updated)
-          })
-          .catch(() => {
-            res.status(500).json({ error: "Something went wrong returning the updated post." })
-          })
-      } else {
-        res.status(404).json({ error: 'Post not found.' })
-      }
+    .then(() => {
+      Howto.update(changes, id)
+        .then(updated => {
+          res.status(200).json(updated)
+        })
+        .catch(() => {
+          res.status(500).json({ error: "Something went wrong returning the updated post." })
+        })
     })
     .catch(() => {
       res.status(500).json({ error: 'Something went wrong finding the post.' })
