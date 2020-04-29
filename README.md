@@ -279,15 +279,14 @@ _An example of how the body should appear:_
 
 _An example of the returned JSON data:_
 ```js
-[
-  {
-    "id": 3,
-    "title":"Edgar's first how-to post",
-    "post":"Instructions will go in here.",
-    "created_at": "2020-04-28 00:58:30",
-    "user_id": 1
-  }
-]
+{
+  "id": 1,
+	"title":"Edgar's first how-to post",
+	"post":"Instructions will go in here.",
+  "created_at": "2020-04-29 00:40:13",
+	"user_id": 1,
+  "categories": []
+}
 ```
 ## [PUT]
 ### URL: /api/howto/:id
@@ -315,7 +314,8 @@ _An example of the returned JSON data:_
     "title":"Edgar's best how-to post",
     "post":"Instructions will go in here.",
     "created_at": "2020-04-28 00:58:30",
-    "user_id": 1
+    "user_id": 1,
+    "categories": []
   }
 ]
 ```
