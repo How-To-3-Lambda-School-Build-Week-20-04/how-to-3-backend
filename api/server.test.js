@@ -19,4 +19,4 @@ describe('server', () => {
       expect(res.type).toMatch(/json/i);
     });
   });
-});
+})

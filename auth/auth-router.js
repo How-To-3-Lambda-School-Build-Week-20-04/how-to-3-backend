@@ -2,10 +2,11 @@ require("dotenv").config();
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { genToken, bodyCheck } = require('./auth-helpers')
 
 const Users = require("../users/users-model");
 
-router.post("/register", (req, res) => {
+router.post("/register", bodyCheck, (req, res) => {
   let user = req.body;
 
   const rounds = /*process.env.ROUNDS ||*/ 12;
@@ -16,8 +17,8 @@ router.post("/register", (req, res) => {
     .then((saved) => {
       res.status(201).json(saved);
     })
-    .catch((err) => {
-      res.status(500).json({ error: err.message });
+    .catch(error => {
+      res.status(500).json({ error: "Could not register user to database.", error });
     });
 });
 
@@ -31,32 +32,12 @@ router.post("/login", (req, res) => {
 
         res.status(200).json({ message: "Welcome Home", token });
       } else {
-        res.status(401).json({ error: "Bad login information" });
+        res.status(400).json({ error: "Bad login information" });
       }
     })
-    .catch((err) => {
-      res.status(500).json({ error: err.message });
+    .catch(error => {
+      res.status(500).json({ error: "Unable to log in.", error });
     });
 });
-
-function genToken(user) {
-  if (
-    !user ||
-    typeof user.id === "undefined" ||
-    typeof user.username === "undefined"
-  ) {
-    new error("username and id needed");
-  }
-  const payload = {
-    userId: user.id,
-    username: user.username,
-  };
-  const secret = process.env.TOKEN_SECRET;
-  const options = {
-    expiresIn: process.env.TOKEN_LIFE || "12h",
-  };
-
-  return jwt.sign(payload, secret, options);
-}
 
 module.exports = router;

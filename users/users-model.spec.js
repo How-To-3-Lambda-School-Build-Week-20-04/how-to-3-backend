@@ -3,21 +3,9 @@ const server = require('../api/server.js')
 const db = require('../data/dbConfig.js')
 
 describe('server', function() {
-  afterAll(async () => {
+  beforeEach(async () => {
     await db('user').truncate()
   })
-
-  describe('GET /', () => {
-    it('should return 200', () => {
-      // make a GET request to / endpoint
-      return request(server) // return async call to let jest know it should wait
-      .get('/')
-      .then(res => {
-        // assert that the status code is 200
-        expect(res.status).toBe(200)
-      })
-    })
-  });
 
   describe('POST /api/auth/register', () => {
     it('adds a new user and gets 201', () => {
@@ -32,32 +20,66 @@ describe('server', function() {
           expect(res.status).toBe(201)
         })
     });
-
   }); // end of REGISTER
+
+  describe('POST /api/auth/register', () => {
+    it('does not add a user with a bad email address', () => {
+      return request(server)
+        .post('/api/auth/register')
+        .send({
+          username: 'edgar',
+          password: '123abc',
+          email: 'edgars_storygmail.com'
+        })
+        .then(res => {
+          expect(res.status).toBe(400)
+        })
+    });
+  }); // end of bad REGISTER
 
   describe('POST /api/auth/login', () => {
     it('gets a token back on login', async () => {
       return request(server)
-        .post('/api/auth/login')
-        .send({
-          username: 'edgar',
-          password: '123abc'
-        })
-        .then(res => {
-          expect(res.body.token).toBeTruthy()
-        })
-    })
-
-    it('rejects bad login information', async () => {
-      return request(server)
-      .post('/api/auth/login')
+      .post('/api/auth/register')
       .send({
         username: 'edgar',
-        password: '123abd'
+        password: '123abc',
+        email: 'edgars_story@gmail.com'
       })
-      .then(res => {
-        expect(res.status).toBe(401)
+      .then(() => {
+        return request(server)
+          .post('/api/auth/login')
+          .send({
+            username: 'edgar',
+            password: '123abc'
+          })
+          .then(res => {
+            expect(res.body.token).toBeTruthy()
+          })
       })
-    })
-  }); // end of LOGIN
+    }) 
+  }) // end of login
+
+  describe('POST /api/auth/login', () => {
+    it('fails to log in with bad information', async () => {
+      return request(server)
+      .post('/api/auth/register')
+      .send({
+        username: 'edgar',
+        password: '123abc',
+        email: 'edgars_story@gmail.com'
+      })
+      .then(() => {
+        return request(server)
+          .post('/api/auth/login')
+          .send({
+            username: 'edgar',
+            password: '123ab'
+          })
+          .then(res => {
+            expect(res.body.error).toBeTruthy()
+          })
+      })
+    }) 
+  }) // end of bad login
 });
