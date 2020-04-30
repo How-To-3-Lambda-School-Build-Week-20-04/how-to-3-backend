@@ -26,7 +26,7 @@ describe('server', function() {
         .send({
           username: 'edgar',
           password: '123abc',
-          email: 'life_of_edgar@gmail.com'
+          email: 'edgars_story@gmail.com'
         })
         .then(res => {
           expect(res.status).toBe(201)
@@ -35,8 +35,8 @@ describe('server', function() {
 
   }); // end of REGISTER
 
-  describe('POST /api/auth/login', async () => {
-    it('gets a token back on login', () => {
+  describe('POST /api/auth/login', () => {
+    it('gets a token back on login', async () => {
       return request(server)
         .post('/api/auth/login')
         .send({

@@ -1,9 +1,10 @@
 const router = require('express').Router();
-const Howto = require('./howto-model.js');
+const Howto = require('./howto-model');
+const User = require('../users/users-model');
 
 // all routes are protected by requiring a token currently
-// certain routes might require further middleware before making actions to db
 
+// returns all posts with any attached categories
 router.get('/', async (req, res) => {
   try {
     Howto.find()
@@ -18,9 +19,35 @@ router.get('/', async (req, res) => {
   }
 })
 
-// TO-DO
-// get post by user ID
+// returns a single post by its id
+router.get('/:id', async (req, res) => {
+  try {
+    Howto.findByID(req.params.id)
+    .then(found => {
+      res.status(200).json(found)
+    })
+    .catch(err => {
+      res.status(500).json({ error: "Failed to return the posts." })
+    })
+  } catch (error) {
+    res.status(500).json({ error: "Unable to contact the database." })
+  }
+})
 
+// returns a post by user's id
+router.get('/user/:id', async (req, res) => {
+  try {
+    Howto.findByUserID(req.params.id)
+    .then(found => {
+      res.status(200).json(found)
+    })
+    .catch(err => {
+      res.status(500).json({ error: "Failed to return the posts." })
+    })
+  } catch (error) {
+    res.status(500).json({ error: "Unable to contact the database." })
+  }
+})
 
 // will reject if no user_id is in the body
 router.post('/', async (req, res) => {
@@ -40,57 +67,74 @@ router.post('/', async (req, res) => {
 });
 
 // id should be the howto's id
-// TO-DO should also require the user's id to make sure its their own post
-
-router.put('/:id', async (req, res) => {
+router.put('/:id', validateUserID, async (req, res) => {
   const changes = req.body
   const id = req.params.id
 
   try {
-    Howto.findByID(id) // check to see if the post exists first
-    .then(found => {
-      if(found.length > 0) {
-        Howto.update(changes, id)
-          .then(updated => {
-            res.status(200).json(updated)
-          })
-          .catch(() => {
-            res.status(500).json({ error: "Something went wrong returning the updated post." })
-          })
-      } else {
-        res.status(404).json({ error: 'Post not found.' })
-      }
-    })
-    .catch(() => {
-      res.status(500).json({ error: 'Something went wrong finding the post.' })
-    })
+    Howto.update(changes, id)
+      .then(updated => {
+        res.status(200).json(updated)
+      })
+      .catch(() => {
+        res.status(500).json({ error: "Something went wrong returning the updated post." })
+      });
   } catch (err) {
     res.status(500).json({ error: 'Something went wrong.' })
   }
 })
 
 // id should be the howto's id
-// TO-DO should also require the user's id to make sure its their own post
-
-router.delete('/:id', async (req, res) => {
+router.delete('/:id/delete', validateUserID, async (req, res) => {
   const id = req.params.id
 
   try {
-    Howto.findByID(id)
-    .then(found => {
-      if(found) {
-        Howto.remove(id)
-        .then(removed => {
-          res.status(200).json({ message: `Successfully removed ${removed} post.` })
-        })
-      }
+    Howto.remove(id)
+    .then(removed => {
+      res.status(200).json(removed)
     })
-    .catch(() => {
-      res.status(404).json({ error: "No post found with that id." })
+    .catch(err => {
+      res.status(500).json({ error: "Unable to remove post at this time." })
     })
   } catch (error) {
     res.status(500).json({ error: "Unable to remove post at this time." })
   }
 })
+
+// middleware
+
+// checks to see if the user's ID matches what they're trying to edit
+async function validateUserID(req, res, next) {
+  const how_id = req.params.id
+  try {
+    if(req.method === 'PUT') {
+      if(!req.body || !req.body.user_id) {
+        res.status(400).json({ error: "Check your body." })
+      } else {
+        const [post_exists] = await Howto.findByUserID(req.body.user_id)
+  
+        if(post_exists.user_id === req.body.user_id) {
+          next()
+        } else {
+          res.status(403).json({ error: "That's not yours. "})
+        }
+      }
+    } else { // this will run for DELETE request
+      if(!req.query.user_id) {
+        res.status(400).json({ error: "Check your query parameters." })
+      } else {
+        const [post_exists] = await Howto.findByUserID(req.query.user_id)
+
+        if(post_exists.user_id === parseInt(req.query.user_id)) {
+          next()
+        } else {
+          res.status(403).json({ error: "That's not yours. "})
+        }
+      }
+    }
+  } catch ({ message, stack }) {
+    res.status(500).json({ error: 'Failed validation check.', message, stack });
+  }
+}
 
 module.exports = router;
