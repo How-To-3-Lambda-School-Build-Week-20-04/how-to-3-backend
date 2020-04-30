@@ -24,7 +24,7 @@ describe('categories router', () => {
   });
 
   describe('POST /', () => {
-    it('should return 1 categories', async () => {
+    it('should create a category and assign an ID', async () => {
       return request(server)
         .post('/api/categories')
         .set({ authorization: token })
@@ -32,7 +32,7 @@ describe('categories router', () => {
           "name":"General"
         })
         .then(res => {
-          expect(res.body).toHaveLength(1)
+          expect(res.body.id).toBe(1)
         })
     });
   });
@@ -55,7 +55,7 @@ describe('categories router', () => {
               "howto_id":"1"
             })
             .then(res => {
-              expect(res.body.categories).toHaveLength(1)
+              expect(res.body.id).toBe(1)
             })
         })
     })
@@ -73,7 +73,7 @@ describe('categories router', () => {
             .get('/api/categories/1/howto')
             .set({ authorization: token })
             .then(res => {
-              expect(res.text).toContain('not found')
+              expect(res.body.message).toContain('not found')
             })
         })
     })

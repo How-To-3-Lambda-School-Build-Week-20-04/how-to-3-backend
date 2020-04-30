@@ -58,7 +58,6 @@ async function getCategories(howto_id) {
 async function addCat(cat) {
   const [newCat] = await db('category')
   .insert(cat)
-  console.log(newCat)
   return getOne({id: newCat})
 }
 

@@ -58,7 +58,7 @@ router.post('/', async (req, res) => {
         res.status(201).json(response)
       })
       .catch(err => {
-        res.status(400).json({ error: "Check your body.", err })
+        res.status(500).json({ error: "Something went wrong.", err })
       })
   } catch ({ message, stack }) {
     res.status(500).json({ error: 'Failed to add category.', message, stack });

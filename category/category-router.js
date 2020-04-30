@@ -104,7 +104,7 @@ function validateCategoryID(req, res, next) {
   const id = parseInt(req.params.id)
   return Category.getOne({id})
     .then(category => {
-      if (category.length === 0) {
+      if (!category) {
         res.status(404).json({ message: 'Category with the specified id was not found.' });
       } else {
         req.category = category;
