@@ -2,10 +2,11 @@ require("dotenv").config();
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { bodyCheck } = require('./auth-helpers')
 
 const Users = require("../users/users-model");
 
-router.post("/register", (req, res) => {
+router.post("/register", bodyCheck, (req, res) => {
   let user = req.body;
 
   const rounds = /*process.env.ROUNDS ||*/ 12;

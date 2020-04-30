@@ -15,6 +15,24 @@ function restricted (req, res, next) {
   }
 }
 
+function bodyCheck (req, res, next) {
+  const email = req.body.email
+  const password = req.body.password
+
+  if (!req.body || !email || !req.body.username || !password) {
+    res.status(400).json({ error: "Missing required information." })
+  } else {
+    if (!email.includes("@")) {
+      res.status(400).json({ error: "Email syntax appears to be incorrect." })
+    } else if (password.length < 6) {
+      res.status(400).json({ error: "Password not secure enough." })
+    } else {
+      next()
+    }
+  }
+}
+
 module.exports = {
-  restricted
+  restricted,
+  bodyCheck
 }
