@@ -6,7 +6,6 @@ router.get("/:id", (req, res) => {
   const howtoId = req.params.id;
   Likes.getHowtoLikes(howtoId)
     .then((data) => {
-      console.log(data, "data from get likes on post route - gethowto likes");
       res.status(201).json(data);
     })
     .catch((err) => {
@@ -16,10 +15,8 @@ router.get("/:id", (req, res) => {
 
 router.post("/", (req, res) => {
   const likeData = req.body;
-  console.log(likeData, "likeData req from post");
   Likes.addLike(likeData)
     .then((data) => {
-      console.log(data, "data from add promise");
       !data
         ? res.status(400).json({ message: "improper request" })
         : res.status(201).json(data);

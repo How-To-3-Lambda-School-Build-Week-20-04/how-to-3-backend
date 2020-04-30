@@ -12,7 +12,6 @@ function getUserLikes(userId) {
 
 // return all likes on a post
 function getHowtoLikes(howtoId) {
-  console.log(howtoId);
   return db("likes")
     .join("howto", "howto.id", "likes.howto_id")
     .where({ howto_id: howtoId })
@@ -20,11 +19,9 @@ function getHowtoLikes(howtoId) {
 }
 // add a like to a post
 function addLike(like) {
-  console.log(like, "like from model");
   return db("likes")
     .insert(like, "id")
     .then(([id]) => {
-      console.log(id, "id from model");
       return db("likes").where({ id });
     });
 }
