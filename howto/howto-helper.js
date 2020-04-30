@@ -11,7 +11,7 @@ async function validateUserID(req, res, next) {
       } else {
         const post_exists = await HowTo.findByID(howto)
 
-        if(post_exists.user_id !== parseInt(req.query.user_id)) {
+        if(post_exists.user_id !== parseInt(req.body.user_id)) {
           res.status(403).json({ error: "That's not yours. "})
         } else {
           next()
