@@ -1,3 +1,4 @@
+
 const HowTo = require('./howto-model')
 
 // checks to see if the user's ID matches what they're trying to edit
@@ -37,4 +38,5 @@ async function validateUserID(req, res, next) {
 
 module.exports = {
   validateUserID
+
 };

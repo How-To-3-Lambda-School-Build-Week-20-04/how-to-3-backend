@@ -1,3 +1,4 @@
+
 const router = require('express').Router();
 const User = require('./users-model.js');
 const Howto = require('../howto/howto-model')
@@ -75,5 +76,6 @@ router.get('/:id/posts', async (req, res) => {
     res.status(500).json({ error: "Unable to contact the database." })
   }
 })
+
 
 module.exports = router;
